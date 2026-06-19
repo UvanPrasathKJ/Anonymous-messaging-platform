@@ -1,0 +1,440 @@
+/* ════════════════════════════════════════════════════════
+   SIDEBAR  —  Glassmorphism + Purple Gradient Active Pill
+   ════════════════════════════════════════════════════════ */
+
+/* ── Shell ────────────────────────────────────────────── */
+.app-sidebar {
+  width: 234px;
+  min-width: 234px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* Deep glass panel */
+  background: linear-gradient(
+    180deg,
+    rgba(18, 10, 35, 0.94) 0%,
+    rgba(10, 8, 24, 0.96) 100%
+  );
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border-right: 1px solid rgba(139, 92, 246, 0.14);
+  position: sticky;
+  top: 0;
+  flex-shrink: 0;
+  z-index: 10;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              min-width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Collapsed state */
+.app-sidebar.collapsed {
+  width: 64px;
+  min-width: 64px;
+}
+
+/* Top neon accent strip */
+.app-sidebar::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(139, 92, 246, 0.7) 30%,
+    rgba(34, 211, 238, 0.5) 70%,
+    transparent 100%);
+}
+
+/* Subtle inner side glow */
+.app-sidebar::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(180deg,
+    transparent 0%,
+    rgba(139, 92, 246, 0.2) 40%,
+    rgba(34, 211, 238, 0.1) 70%,
+    transparent 100%);
+}
+
+/* ── Logo / brand ─────────────────────────────────────── */
+.app-sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 18px 16px;
+  border-bottom: 1px solid rgba(139, 92, 246, 0.09);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.app-sidebar-logo-icon {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  border-radius: 11px;
+  background: linear-gradient(135deg,
+    rgba(139, 92, 246, 0.35),
+    rgba(34, 211, 238, 0.2));
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  box-shadow:
+    0 0 16px rgba(139, 92, 246, 0.3),
+    0 0 32px rgba(139, 92, 246, 0.1);
+  flex-shrink: 0;
+}
+
+.sidebar-brand {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  transition: opacity 0.2s, width 0.3s;
+}
+.app-sidebar.collapsed .sidebar-brand {
+  opacity: 0;
+  width: 0;
+  pointer-events: none;
+}
+
+.app-sidebar-logo-text {
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text-bright);
+  letter-spacing: -0.3px;
+  white-space: nowrap;
+}
+
+.app-sidebar-logo-tag {
+  display: block;
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--cyan);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.65;
+  margin-top: 1px;
+}
+
+/* ── Collapse toggle ──────────────────────────────────── */
+.sidebar-collapse-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: rgba(139, 92, 246, 0.08);
+  border: 1px solid rgba(139, 92, 246, 0.15);
+  color: var(--text-muted);
+  font-size: 11px;
+  cursor: pointer;
+  margin-left: auto;
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s, transform 0.3s;
+}
+.sidebar-collapse-btn:hover {
+  background: rgba(139, 92, 246, 0.15);
+  color: var(--purple-bright);
+}
+.app-sidebar.collapsed .sidebar-collapse-btn {
+  transform: rotate(180deg);
+}
+
+/* ── Section label ────────────────────────────────────── */
+.sidebar-section-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--text-muted);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 16px 18px 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: opacity 0.2s;
+}
+.app-sidebar.collapsed .sidebar-section-label {
+  opacity: 0;
+  height: 0;
+  padding: 0;
+}
+
+/* ── Nav container ────────────────────────────────────── */
+.app-sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 4px 10px 0;
+}
+
+/* ── Nav item base ────────────────────────────────────── */
+.app-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 10px 13px;
+  border-radius: 11px;
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.18s, color 0.18s;
+  white-space: nowrap;
+}
+
+/* Hover state */
+.app-nav-item:hover {
+  background: rgba(139, 92, 246, 0.07);
+  color: var(--text-primary);
+}
+.app-nav-item:hover .app-nav-icon {
+  color: var(--purple-bright);
+}
+
+/* ── Active  =  purple gradient pill ─────────────────── */
+.app-nav-item.active {
+  background: linear-gradient(135deg,
+    rgba(139, 92, 246, 0.22) 0%,
+    rgba(99, 60, 200, 0.14) 60%,
+    rgba(34, 211, 238, 0.06) 100%);
+  color: #fff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 0 0 1px rgba(139, 92, 246, 0.25),
+    0 4px 16px rgba(139, 92, 246, 0.2);
+}
+
+/* Active: left glow bar */
+.app-nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 18%; bottom: 18%;
+  width: 3px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, var(--purple), var(--cyan));
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.7);
+}
+
+.app-nav-item.active .app-nav-icon {
+  color: var(--purple-bright);
+  filter: drop-shadow(0 0 4px rgba(139, 92, 246, 0.6));
+}
+.app-nav-item.active .app-nav-label {
+  font-weight: 600;
+}
+
+/* Hover shimmer sweep */
+.app-nav-item::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%; right: 100%; bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(139,92,246,0.07), transparent);
+  transition: left 0.35s, right 0.35s;
+  pointer-events: none;
+}
+.app-nav-item:hover::after {
+  left: 0;
+  right: 0;
+}
+
+/* Icon + label */
+.app-nav-icon {
+  font-size: 16px;
+  width: 22px;
+  min-width: 22px;
+  text-align: center;
+  flex-shrink: 0;
+  transition: color 0.15s, filter 0.15s;
+}
+.app-nav-label {
+  line-height: 1;
+  overflow: hidden;
+  transition: opacity 0.2s, width 0.3s;
+}
+.app-sidebar.collapsed .app-nav-label {
+  opacity: 0;
+  width: 0;
+}
+.app-sidebar.collapsed .app-nav-item {
+  justify-content: center;
+  padding: 11px 0;
+}
+.app-sidebar.collapsed .app-nav-item.active::before {
+  top: 0; bottom: 0;
+  width: 2px;
+}
+
+/* Badge */
+.app-nav-badge {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 10px;
+  background: rgba(139, 92, 246, 0.18);
+  color: var(--purple-bright);
+  border: 1px solid rgba(139, 92, 246, 0.25);
+  transition: opacity 0.2s;
+}
+.app-sidebar.collapsed .app-nav-badge {
+  display: none;
+}
+
+/* Logout */
+.app-nav-item.logout { color: var(--text-muted); }
+.app-nav-item.logout:hover {
+  background: rgba(244, 63, 94, 0.08);
+  color: #fb7185;
+}
+.app-nav-item.logout:hover .app-nav-icon { color: #fb7185; }
+.app-nav-item.logout.active::before { display: none; }
+
+/* ── Spacer ───────────────────────────────────────────── */
+.app-sidebar-spacer { flex: 1; }
+
+/* ── Footer ───────────────────────────────────────────── */
+.app-sidebar-footer {
+  padding: 10px 10px 20px;
+  border-top: 1px solid rgba(139, 92, 246, 0.09);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+/* Network status row */
+.sidebar-status {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 13px;
+  margin-bottom: 6px;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  overflow: hidden;
+}
+.sidebar-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 8px var(--green);
+  flex-shrink: 0;
+  animation: pulse-ring 2.2s ease-in-out infinite;
+}
+.sidebar-status span {
+  transition: opacity 0.2s;
+}
+.app-sidebar.collapsed .sidebar-status span { opacity: 0; }
+.app-sidebar.collapsed .sidebar-status { justify-content: center; }
+
+/* User block */
+.app-sidebar-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 11px;
+  margin-bottom: 4px;
+  transition: background 0.15s;
+}
+.app-sidebar-user:hover {
+  background: rgba(139, 92, 246, 0.06);
+}
+.app-sidebar.collapsed .app-sidebar-user {
+  justify-content: center;
+  padding: 8px 0;
+}
+
+.app-sidebar-avatar {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--purple), var(--cyan));
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 800;
+  color: #fff;
+  flex-shrink: 0;
+  box-shadow:
+    0 0 10px rgba(139, 92, 246, 0.35),
+    0 0 0 2px rgba(139, 92, 246, 0.1);
+}
+
+.app-sidebar-user-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  transition: opacity 0.2s, width 0.3s;
+}
+.app-sidebar.collapsed .app-sidebar-user-info {
+  opacity: 0;
+  width: 0;
+}
+
+.app-sidebar-username {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.app-sidebar-role {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--purple-bright);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 1px;
+}
+
+/* ── Tooltip on collapsed ─────────────────────────────── */
+.app-sidebar.collapsed .app-nav-item {
+  position: relative;
+}
+.app-sidebar.collapsed .app-nav-item:hover::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(10, 8, 24, 0.95);
+  border: 1px solid rgba(139, 92, 246, 0.25);
+  border-radius: 7px;
+  padding: 5px 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-primary);
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 100;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+}
+
+/* Override ::after for collapsed (no shimmer — tooltip lives there) */
+.app-sidebar.collapsed .app-nav-item::after { display: none; }
